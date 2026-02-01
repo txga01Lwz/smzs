@@ -35,16 +35,14 @@
             text-align: center;
         }
 
-        /* 修改后的LOGO样式：适应长方形完整显示 */
         .logo-img {
-            width: 110px; /* 设置一个合适的宽度 */
-            height: auto; /* 关键：高度自动，严格保持原图长方形比例，不做任何裁切 */
-            border-radius: 8px; /* 稍微调整圆角看起来更自然 */
+            width: 110px;
+            height: auto;
+            border-radius: 8px;
             border: 3px solid rgba(255,255,255,0.3);
             margin-bottom: 15px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             background: white;
-            /* object-fit: cover; 已删除，防止裁切 */
         }
         
         .header h1 {
@@ -823,6 +821,52 @@
         }
 
         function generateReport() {
+            // --------------------------------------------------------
+            // 1. 准备要发送的数据 (适配 Web3Forms)
+            // --------------------------------------------------------
+            const reportData = {
+                // 已替换为你提供的 QQ 邮箱 Access Key
+                "access_key": "7a8f6fdd-2da0-4503-a64f-9fd4aac20362", 
+                
+                // 邮件标题
+                "subject": "新的生命之树提交报告",
+                
+                // 用户填写的具体内容
+                "姓名": userData.name,
+                "电话": userData.phone,
+                "天空(事件)": userData.answers.sky ? userData.answers.sky[0] : "",
+                "树冠(反应)": userData.answers.crown ? userData.answers.crown.join(", ") : "",
+                "树干(感受)": userData.answers.trunk ? userData.answers.trunk.join(", ") : "",
+                "树根(需求)": userData.answers.root ? userData.answers.root.join(", ") : "",
+                "土壤(来源)": userData.answers.soil ? userData.answers.soil.join(", ") : "",
+                "提交时间": new Date().toLocaleString('zh-CN')
+            };
+
+            // --------------------------------------------------------
+            // 2. 发送数据给 Web3Forms
+            // --------------------------------------------------------
+            fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(reportData)
+            })
+            .then(async (response) => {
+                if (response.status == 200) {
+                    console.log("Web3Forms: 发送成功！");
+                } else {
+                    console.log("Web3Forms: 发送可能遇到问题", response);
+                }
+            })
+            .catch(error => {
+                console.log("Web3Forms: 发送出错", error);
+            });
+
+            // --------------------------------------------------------
+            // 3. 生成报告页面 (保持不变的显示逻辑)
+            // --------------------------------------------------------
             const content = document.getElementById('content');
             const date = new Date().toLocaleDateString('zh-CN');
             
