@@ -1,4 +1,3 @@
-[index.html](https://github.com/user-attachments/files/24991173/index.html)
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -36,10 +35,12 @@
             text-align: center;
         }
 
+        /* LOGO样式调整：尺寸加大一倍 */
         .logo-img {
-            width: 110px;
-            height: auto;
-            border-radius: 8px;
+            width: 220px; /* 从110px调整为220px */
+            max-width: 90%; /* 防止在超小手机屏幕溢出 */
+            height: auto; 
+            border-radius: 8px; 
             border: 3px solid rgba(255,255,255,0.3);
             margin-bottom: 15px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
@@ -49,11 +50,13 @@
         .header h1 {
             font-size: 24px;
             margin-bottom: 10px;
+            font-weight: bold;
         }
         
         .header p {
-            font-size: 14px;
-            opacity: 0.9;
+            font-size: 15px; /* 稍微调大了一点 */
+            opacity: 0.95;
+            font-weight: 500;
         }
         
         .progress-bar {
@@ -107,12 +110,20 @@
         .step-desc {
             color: #666;
             margin-bottom: 25px;
-            font-size: 14px;
+            font-size: 15px;
             line-height: 1.6;
-            padding: 12px;
+            padding: 15px;
             background: #f0f4ff;
             border-radius: 8px;
             border-left: 4px solid #667eea;
+        }
+
+        /* 强调选择类型的样式 */
+        .select-emphasis {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e65100;
+            margin-right: 5px;
         }
         
         .category-section {
@@ -304,19 +315,28 @@
             opacity: 0.3;
         }
         
-        .counter-number {
-            font-size: 32px;
+        /* 调整后的计数器样式 */
+        .counter-label-large {
+            font-size: 20px;
             font-weight: bold;
+            color: #8d6e63;
+            margin-bottom: 5px;
+        }
+
+        .counter-number {
+            font-size: 42px; /* 加大 */
+            font-weight: 900; /* 加粗 */
             color: #e65100;
             margin: 10px 0;
             font-family: 'Courier New', monospace;
             letter-spacing: 2px;
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.5);
         }
         
         .counter-text {
             color: #8d6e63;
-            font-size: 14px;
-            line-height: 1.5;
+            font-size: 15px;
+            line-height: 1.6;
         }
         
         .counter-highlight {
@@ -324,7 +344,7 @@
             font-weight: 600;
         }
         
-        /* 报告样式 - 完整展示所有选择 */
+        /* 报告样式 */
         .report-full {
             background: linear-gradient(135deg, #faf8f5 0%, #f5f0e8 100%);
             border-radius: 15px;
@@ -383,13 +403,6 @@
         
         .path-card-icon {
             font-size: 20px;
-        }
-        
-        .path-card-label {
-            color: #8b7355;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
         
         .path-card-content {
@@ -498,8 +511,9 @@
             background: #5d4e37;
             color: #f5f0e8;
             border-radius: 12px;
-            font-size: 13px;
+            font-size: 14px;
             line-height: 1.8;
+            font-weight: 500;
         }
         
         .screenshot-tip-full {
@@ -526,7 +540,7 @@
             body { padding: 10px; }
             .content { padding: 20px; }
             .report-full { padding: 20px; }
-            .counter-number { font-size: 28px; }
+            .counter-number { font-size: 36px; }
             .path-card { padding: 15px; }
             .qr-image { width: 80px; height: 80px; }
         }
@@ -537,7 +551,7 @@
         <div class="header">
             <img src="https://raw.githubusercontent.com/txga01Lwz/qr-code/main/txga2.png" alt="听心格爱" class="logo-img">
             <h1>🌳 听心格爱生命之树</h1>
-            <p>看见自己的心 · 一张帮你读懂情绪、走回内心的地图</p>
+            <p>真正的爱自己就是“看见”真实的自己</p>
         </div>
         
         <div class="progress-bar" id="progressBar">
@@ -574,7 +588,8 @@
         const steps = [
             {
                 id: 'welcome',
-                title: '🌟 欢迎来到生命之树',
+                title: '🌟 开启您的觉醒之路',
+                subtitle: '（全程约三分钟）',
                 desc: '',
                 type: 'welcome',
                 counter: baseCounter
@@ -586,13 +601,15 @@
                 type: 'form',
                 fields: [
                     { id: 'name', label: '您的称呼', placeholder: '例如：小明', required: true },
+                    { id: 'gender', label: '性别', placeholder: '男/女', required: true },
+                    { id: 'age', label: '年龄', placeholder: '例如：28', required: true },
                     { id: 'phone', label: '联系电话', placeholder: '用于标识您的报告', required: true }
                 ]
             },
             {
                 id: 'sky',
                 title: '🌤️ 天空 - 发生了什么事',
-                desc: '【单选】请选择一件最近让您情绪波动最强烈的具体事件：',
+                desc: '<span class="select-emphasis">【单选】</span>请选择一件最近让您情绪波动最强烈的具体事件：',
                 type: 'single',
                 categories: [
                     { name: '感情关系类', items: ['对方冷淡', '不回消息', '回得敷衍', '态度变了', '不解释', '不耐烦', '和别人走得近', '出现异性', '暧昧', '隐瞒事情', '说谎', '吵架', '冷战', '被忽略', '被比较', '被嫌弃', '不陪我', '不被优先选择', '被放在后面'] },
@@ -605,7 +622,7 @@
             {
                 id: 'crown',
                 title: '🌳 树冠 - 下意识做了什么',
-                desc: '【可多选】请选择您当时几乎来不及思考就做出来的反应：',
+                desc: '<span class="select-emphasis">【多选】</span>请选择您当时几乎来不及思考就做出来的反应：',
                 type: 'multiple',
                 categories: [
                     { name: '控制型反应', items: ['不停追问', '反复确认', '查手机', '盯着对方', '一定要说清楚', '非要答案', '不让对方躲'] },
@@ -619,7 +636,7 @@
             {
                 id: 'trunk',
                 title: '🪵 树干 - 心里的真实感受',
-                desc: '【可多选】请选择您内心真正的情绪和心理感受：',
+                desc: '<span class="select-emphasis">【多选】</span>请选择您内心真正的情绪和心理感受：',
                 type: 'multiple',
                 categories: [
                     { name: '不安害怕类', items: ['心慌', '不踏实', '害怕', '紧张', '担心', '没安全感', '怕失去', '恐慌', '焦虑'] },
@@ -632,7 +649,7 @@
             {
                 id: 'root',
                 title: '🌱 树根 - 真正想要什么',
-                desc: '【可多选】请选择您情绪背后的真实需求：',
+                desc: '<span class="select-emphasis">【多选】</span>请选择您情绪背后的真实需求：',
                 type: 'multiple',
                 categories: [
                     { name: '安全感需求', items: ['想确定你不会走', '想安心', '想稳定', '不想被抛弃', '不想再受伤', '想有依靠'] },
@@ -647,7 +664,7 @@
             {
                 id: 'soil',
                 title: '🪨 土壤 - 观念的来源',
-                desc: '【可多选】请选择形成您现在模式的成长背景：',
+                desc: '<span class="select-emphasis">【多选】</span>请选择形成您现在模式的成长背景：',
                 type: 'multiple',
                 categories: [
                     { name: '家庭经历', items: ['父母冷漠', '爱打压', '要求高', '很少夸人', '偏心', '控制强', '情绪不稳定', '缺乏陪伴', '忽视情绪'] },
@@ -661,7 +678,7 @@
         ];
 
         let currentStep = 0;
-        let userData = { name: '', phone: '', answers: {} };
+        let userData = { name: '', gender: '', age: '', phone: '', answers: {} };
         let userCounterNumber = baseCounter;
 
         function renderStep() {
@@ -686,14 +703,17 @@
             if (step.type === 'welcome') {
                 html += `
                     <div class="counter-box">
-                        <div class="counter-text">已有</div>
+                        <div class="counter-label-large">已有</div>
                         <div class="counter-number" id="counterNum">${step.counter.toLocaleString()}</div>
                         <div class="counter-text">
                             人找到自己的<span class="counter-highlight">生命之树</span><br>
                             您是第 <span class="counter-highlight" id="userNum">${(step.counter + 1).toLocaleString()}</span> 位探索者
                         </div>
                     </div>
-                    <h2 class="step-title" style="text-align: center; justify-content: center;">${step.title}</h2>
+                    <h2 class="step-title" style="text-align: center; justify-content: center; flex-direction: column; gap: 5px;">
+                        ${step.title}
+                        <span style="font-size: 16px; font-weight: normal; color: #666;">${step.subtitle}</span>
+                    </h2>
                     <p class="step-desc" style="text-align: center; background: transparent; border: none;">
                         这不是评判你的工具，而是陪你看懂自己的地图<br>
                         当事情发生时，你为什么会这样反应？<br>
@@ -752,7 +772,7 @@
             const btnAction = isLast ? 'generateReport()' : 'nextStep()';
             
             let canProceed = true;
-            if (step.type === 'form') canProceed = userData.name && userData.phone;
+            if (step.type === 'form') canProceed = userData.name && userData.phone && userData.gender && userData.age;
             else if (step.type === 'single') canProceed = (userData.answers[step.id] || []).length === 1;
             else if (step.type === 'multiple') canProceed = (userData.answers[step.id] || []).length > 0;
             
@@ -834,6 +854,8 @@
                 
                 // 用户填写的具体内容
                 "姓名": userData.name,
+                "性别": userData.gender,
+                "年龄": userData.age,
                 "电话": userData.phone,
                 "天空(事件)": userData.answers.sky ? userData.answers.sky[0] : "",
                 "树冠(反应)": userData.answers.crown ? userData.answers.crown.join(", ") : "",
@@ -972,7 +994,7 @@
                                     </div>
                                     <div style="margin-top: 5px; font-size: 13px;">
                                         帮你看见模式背后的真相<br>
-                                        找到真正适合你的疗愈路径
+                                        如需帮助后台咨询
                                     </div>
                                     <div class="consult-btn-full">扫码预约咨询</div>
                                 </div>
@@ -980,8 +1002,9 @@
                         </div>
                         
                         <div class="report-footer-full">
-                            <strong>不是你不好，是你太努力活着了</strong><br>
-                            每一次情绪都是求救，每一次反应都是自保<br>
+                            截屏后根据（天空-树冠-树干-树根-土壤）<br>
+                            依序找出它们彼此的关联点，<br>
+                            这就是“我”背后那个真实的自己。<br>
                             <em>愿你看懂自己，温柔待己，因为你值得</em>
                         </div>
                     </div>
